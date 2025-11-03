@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="cordova-plugin-contenturl" version="0.0.1">
+    <name>ContentUrlPlugin</name>
+    <js-module src="www/plugin_contenturl.js" name="contenturl">
+        <clobbers target="contenturl" />
+    </js-module>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ContentUrlPlugin" >
+                <param name="android-package" value="jp.or.sample.ContentUrlPlugin.Main"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <source-file src="src/android/jp/or/sample/ContentUrlPlugin/Main.java" target-dir="src/jp/or/sample/ContentUrlPlugin" />
+        <source-file src="src/android/jp/or/sample/ContentUrlPlugin/IntentReceiverActivity.java" target-dir="src/jp/or/sample/ContentUrlPlugin" />
+        
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                android:name="jp.or.sample.ContentUrlPlugin.IntentReceiverActivity"
+                android:exported="true"
+                android:launchMode="standard"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar">
+                <intent-filter>
+                    <action android:name="android.intent.action.SEND" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <data android:mimeType="*/*" />
+                </intent-filter>
+            </activity>
+        </config-file>
+    </platform>
+</plugin>
